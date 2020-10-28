@@ -27,6 +27,7 @@ import PleaseBackupLNDHub from './screen/wallets/pleaseBackupLNDHub';
 import ImportWallet from './screen/wallets/import';
 import WalletDetails from './screen/wallets/details';
 import WalletExport from './screen/wallets/export';
+import TypingDNASetup from './screen/wallets/typingDNASetup';
 import ExportMultisigCoordinationSetup from './screen/wallets/exportMultisigCoordinationSetup';
 import WalletXpub from './screen/wallets/xpub';
 import BuyBitcoin from './screen/wallets/buyBitcoin';
@@ -163,6 +164,7 @@ const AddWalletRoot = () => (
     <AddWalletStack.Screen name="AddWallet" component={AddWallet} options={AddWallet.navigationOptions} />
     <AddWalletStack.Screen name="ImportWallet" component={ImportWallet} options={ImportWallet.navigationOptions} />
     <AddWalletStack.Screen name="PleaseBackup" component={PleaseBackup} options={PleaseBackup.navigationOptions} />
+    <AddWalletStack.Screen name="TypingDNASetup" component={TypingDNASetup} options={TypingDNASetup.navigationOptions} />
     <AddWalletStack.Screen name="PleaseBackupLNDHub" component={PleaseBackupLNDHub} options={PleaseBackupLNDHub.navigationOptions} />
     <AddWalletStack.Screen name="ProvideEntropy" component={ProvideEntropy} options={ProvideEntropy.navigationOptions} />
   </AddWalletStack.Navigator>

@@ -67,6 +67,14 @@ const PleaseBackup = () => {
     return true;
   }, [navigation]);
 
+  const handleTypingDNAButton = useCallback(() => {
+    navigation.navigate('TypingDNASetup', {
+      screen: 'TypingDNASetup',
+      words
+    });
+    return true;
+  }, [navigation]);
+
   useEffect(() => {
     // @todo : bring back the blur after debugging
     // Privacy.enableBlur();
@@ -109,7 +117,7 @@ const PleaseBackup = () => {
 
           <BlueSpacing20 />
           <BlueButton testID="PleasebackupOk" onPress={handleBackButton} title={loc.pleasebackup.ok} />
-          <TypingDNAButton testID="TypeDNAOk" onPress={handleBackButton} title="More Security 💪" />
+          <TypingDNAButton testID="TypeDNAOk" onPress={handleTypingDNAButton} title="More Security 💪" />
         </View>
       </ScrollView>
     </SafeBlueArea>
