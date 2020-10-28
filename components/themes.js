@@ -13,6 +13,7 @@ export const BlueDefaultTheme = {
     buttonBackgroundColor: '#ccddf9',
     buttonTextColor: '#0c2550',
     buttonAlternativeTextColor: '#2f5fb3',
+    buttonTypingDNABackgroundColor: '#37c0a1',
     buttonDisabledBackgroundColor: '#eef0f4',
     buttonDisabledTextColor: '#9aa0aa',
     inputBorderColor: '#d2d2d2',

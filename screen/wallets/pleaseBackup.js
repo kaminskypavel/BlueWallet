@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { ActivityIndicator, View, BackHandler, Text, ScrollView, StyleSheet, StatusBar } from 'react-native';
 import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
-import { BlueSpacing20, SafeBlueArea, BlueNavigationStyle, BlueText, BlueButton } from '../../BlueComponents';
+import { BlueSpacing20, SafeBlueArea, BlueNavigationStyle, BlueText, BlueButton, TypingDNAButton } from '../../BlueComponents';
 import Privacy from '../../Privacy';
 import loc from '../../loc';
 
@@ -68,7 +68,8 @@ const PleaseBackup = () => {
   }, [navigation]);
 
   useEffect(() => {
-    Privacy.enableBlur();
+    // @todo : bring back the blur after debugging
+    // Privacy.enableBlur();
     setIsLoading(false);
     BackHandler.addEventListener('hardwareBackPress', handleBackButton);
     return () => {
@@ -79,6 +80,7 @@ const PleaseBackup = () => {
 
   const renderSecret = () => {
     const component = [];
+    console.log(words);
     for (const [index, secret] of words.entries()) {
       component.push(
         <View style={styles.word} key={`${secret}${index}`}>
@@ -107,6 +109,7 @@ const PleaseBackup = () => {
 
           <BlueSpacing20 />
           <BlueButton testID="PleasebackupOk" onPress={handleBackButton} title={loc.pleasebackup.ok} />
+          <TypingDNAButton testID="TypeDNAOk" onPress={handleBackButton} title="More Security 💪" />
         </View>
       </ScrollView>
     </SafeBlueArea>

@@ -105,6 +105,47 @@ export const BlueButton = props => {
   );
 };
 
+export const TypingDNAButton = props => {
+  const { colors } = useTheme();
+  const { width } = useWindowDimensions();
+
+  let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.buttonTypingDNABackgroundColor || BlueCurrentTheme.colors.mainColor;
+  let fontColor = colors.buttonTextColor;
+  if (props.disabled === true) {
+    backgroundColor = colors.buttonDisabledBackgroundColor;
+    fontColor = colors.buttonDisabledTextColor;
+  }
+
+  let buttonWidth = props.width ? props.width : width / 1.5;
+  if ('noMinWidth' in props) {
+    buttonWidth = 0;
+  }
+
+  return (
+    <TouchableOpacity
+      style={{
+        flex: 1,
+        borderWidth: 0.7,
+        borderColor: 'transparent',
+        backgroundColor: backgroundColor,
+        minHeight: 45,
+        height: 45,
+        maxHeight: 45,
+        borderRadius: 25,
+        minWidth: buttonWidth,
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+      {...props}
+    >
+      <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+        {props.icon && <Icon name={props.icon.name} type={props.icon.type} color={props.icon.color} />}
+        {props.title && <Text style={{ marginHorizontal: 8, fontSize: 16, color: fontColor }}>{props.title}</Text>}
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 export const BlueButtonHook = props => {
   const { colors } = useTheme();
   let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.mainColor;
