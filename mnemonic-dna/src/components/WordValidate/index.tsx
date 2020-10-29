@@ -16,6 +16,15 @@ const WordPreview = ({word, onComplete, prefix}: Props) => {
         if (word.startsWith(text)) {
             setTypedText(text)
         }
+
+        if (word === text) {
+            onComplete()
+        }
+    }
+
+    const verifyComplete = () => {
+        if (word === typedText)
+            onComplete()
     }
 
     return (
@@ -35,7 +44,6 @@ const WordPreview = ({word, onComplete, prefix}: Props) => {
                 type="text"
                 onChange={(val => validateTypedText(val))}
                 fields={word.length}
-                onComplete={() => word === typedText && onComplete()}
                 placeholder={word.split("")}/>
         </div>)
 
