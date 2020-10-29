@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import WordValidate from "../WordValidate";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const words = ["bird", "is", "the", "word"]
+
+    const [currentWordIdx, setCurrentWordIdx] = useState(0);
+
+    const onWordVerified = () => {
+        if (currentWordIdx < words.length - 1)
+            setCurrentWordIdx(currentWordIdx + 1);
+        else
+            alert('done')
+    }
+
+    return (
+        <div className="App">
+            <WordValidate
+                prefix={currentWordIdx + 1 + "."}
+                word={words[currentWordIdx]}
+                onComplete={onWordVerified}/>
+        </div>
+    );
 }
 
 export default App;
