@@ -178,7 +178,9 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
-    
+
+    implementation project(':typingdnarecorder-react-native')
+
     androidTestImplementation('com.wix:detox:+') {
         exclude group: 'org.jetbrains.kotlin', module: 'kotlin-stdlib-jdk8'
     }
