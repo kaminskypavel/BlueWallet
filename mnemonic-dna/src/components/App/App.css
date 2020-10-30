@@ -1,20 +1,22 @@
 .App {
-  padding-top: 50px;
-  text-align: center;
+    padding-top: 50px;
+    text-align: center;
 }
 
 .wrapper {
-  padding-top: 25px;
-  display: grid;
-  grid-template-columns: 25% 25% 25% 25%;
-  padding-left: 10px;
-  padding-right: 10px;
+    padding-top: 25px;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    padding-left: 10px;
+    padding-right: 10px;
 }
+
 .word {
-  margin:10px
+    margin: 10px
 }
 
 .bold {
-  font-weight: bold;
-  background: yellow;
+    font-weight: bold;
+    background: yellow;
+    color: black;
 }

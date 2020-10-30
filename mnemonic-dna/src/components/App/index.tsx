@@ -6,7 +6,6 @@ import qs from "query-string";
 
 // var TypingDnaClient = require('typingdnaclient');
 // const {TypingDNA} = require("./../../typingdna-sdk/typingdna");
-declare var TypingDNA: any;
 
 function App() {
 
@@ -42,7 +41,7 @@ function App() {
                 {words.map((w, i) =>
                     <small key={w} className={`word ${i < currentWordIdx ? "bold" : ""} `}>{i}. {w}</small>)}
             </div>
-
+            <button onClick={() => window.ReactNativeWebView.postMessage("finish")}>Close</button>
         </div>
     );
 }

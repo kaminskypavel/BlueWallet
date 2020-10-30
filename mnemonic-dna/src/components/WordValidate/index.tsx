@@ -13,11 +13,11 @@ const WordPreview = ({word, onComplete, prefix}: Props) => {
     const [typedText, setTypedText] = useState("");
 
     const validateTypedText = (text: string) => {
-        if (word.startsWith(text)) {
+        if (word.startsWith(text.toLowerCase())) {
             setTypedText(text)
         }
 
-        if (word === text) {
+        if (word === text.toLowerCase()) {
             onComplete()
         }
     }
@@ -44,7 +44,7 @@ const WordPreview = ({word, onComplete, prefix}: Props) => {
                 type="text"
                 onChange={(val => validateTypedText(val))}
                 fields={word.length}
-                placeholder={word.split("")}/>
+                placeholder={word.toUpperCase().split("")}/>
         </div>)
 
 }
