@@ -1,9 +1,9 @@
-# Extra (DNA) Layer - a bitcoin wallet base on biometric protection
+# BioWallet - a bitcoin ₿ wallet based on biometric protection
 ---
 ####  ⚠🛑THIS IS A PROOF OF CONCEPT - PLEASE DO NOT USE IT FOR STORING REAL BITCOINS 🛑⚠ 
 
-A Thin Bitcoin Wallet.
-Built with React Native and Electrum, Based on the popular [BlueWallet](www.bluewallet.io).
+A Thin Bitcoin Wallet, Based on the popular [BlueWallet](www.bluewallet.io).
+Integrated with [TypingDNA](typingdna.com) biometrics authentication
 
 ---
 
@@ -61,18 +61,10 @@ In another terminal window within the BlueWallet folder:
 ```
 npx react-native run-ios
 ```
-
-
-
-## MOTIVATION TO BUILD IT
-
-I was not satisfied with existing iOS Bitcoin apps, especially with BreadWallet (the one I mainly used) where development stalled and they could not even deliver such features as SegWit, RBF and custom fees (at the times where custom fees were especially needed).
-So I knew I could create one to use myself and let others use it.
-I had experience with awesome bitcoin-js lib (javascript), and since I dont own any Macs, don't plan to and not going to learn ObjC/Swift - ReactNative (where you also write in javascript) was an obvious choice.
-
+## Stack
+TBD
 
 ## LICENSE
-
 MIT
 
 ## RESPONSIBLE DISCLOSURE
