@@ -17,7 +17,7 @@ Integrated with [TypingDNA](typingdna.com) biometrics authentication
 * In your console:
 
 ```
-git clone https://github.com/kaminskypavel/dna-layer-bluewallet
+git clone https://github.com/kaminskypavel/biowallet
 cd dna-layer-bluewallet
 yarn
 ```
