@@ -63,6 +63,12 @@ In another terminal window within the BlueWallet folder:
 ```
 npx react-native run-ios
 ```
+
+## Resources
+- [TypingDNA Dashboard](https://www.typingdna.com/clients/)
+- [TypingDNA API Docs](https://api.typingdna.com/index.html#api-API_Services-saveUserPattern)
+- [Chrome DevTools Webview](chrome://inspect/#devices)
+
 ## Stack
 TBD
 
