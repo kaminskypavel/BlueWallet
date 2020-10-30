@@ -7,4 +7,7 @@ interface Window {
     ReactNativeWebView: {
         postMessage(msg: string): void;
     };
+
 }
+
+declare const TypingDNA: any;
