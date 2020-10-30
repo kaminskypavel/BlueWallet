@@ -1,12 +1,14 @@
-# BioWallet - a bitcoin ₿ wallet based on biometric protection
+# BioWallet - a bitcoin ₿ wallet + biometric protection
 ---
-####  ⚠🛑THIS IS A PROOF OF CONCEPT - PLEASE DO NOT USE IT FOR STORING REAL BITCOINS 🛑⚠ 
-
 A Thin Bitcoin Wallet, Based on the popular [BlueWallet](www.bluewallet.io).
+
 Integrated with [TypingDNA](typingdna.com) biometrics authentication
 
 ---
 
+####  ⚠ THIS IS A PROOF OF CONCEPT - PLEASE DO NOT USE IT FOR STORING REAL BITCOINS (YET) ⚠ 
+
+---
 <img src="./assets/preview.gif">
 
 
