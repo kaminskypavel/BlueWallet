@@ -23,10 +23,8 @@ function App() {
 
     const onWordVerified = () => {
 
-        const word = words[currentWordIdx];
         const diagram = tdna.getTypingPattern();
 
-        console.log(word);
         if (currentWordIdx < words.length - 1)
             setCurrentWordIdx(currentWordIdx + 1);
         else
@@ -39,6 +37,12 @@ function App() {
                 prefix={currentWordIdx + 1 + "."}
                 word={words[currentWordIdx]}
                 onComplete={onWordVerified}/>
+            <br/>
+            <div className="wrapper">
+                {words.map((w, i) =>
+                    <small key={w} className={`word ${i < currentWordIdx ? "bold" : ""} `}>{i}. {w}</small>)}
+            </div>
+
         </div>
     );
 }
