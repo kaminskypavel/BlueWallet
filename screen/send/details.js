@@ -418,7 +418,7 @@ export default class SendDetails extends Component {
     for (const [index, transaction] of this.state.addresses.entries()) {
       let error;
       if (!transaction.amount || transaction.amount < 0 || parseFloat(transaction.amount) === 0) {
-        error = loc.send.details_amount_field_is_not_valid;
+        // error = loc.send.details_amount_field_is_not_valid;
         console.log('validation error');
       } else if (!requestedSatPerByte || parseFloat(requestedSatPerByte) < 1) {
         error = loc.send.details_fee_field_is_not_valid;
