@@ -32,6 +32,7 @@ import { useTheme, useNavigation } from '@react-navigation/native';
 import { Chain } from '../../models/bitcoinUnits';
 import loc from '../../loc';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
+import { HDSegwitBech32ExtraLayer } from '../../class/wallets/hd-segwit-bech32-extra-layer-wallet';
 const A = require('../../blue_modules/analytics');
 
 const WalletsAdd = () => {
@@ -98,28 +99,35 @@ const WalletsAdd = () => {
 
   const createWallet = async () => {
     setIsLoading(true);
-
     let w;
 
     if (selectedWalletType === Chain.OFFCHAIN) {
       createLightningWallet(w);
-    } else if (selectedWalletType === Chain.ONCHAIN) {
+    } else if ([Chain.ONCHAIN, Chain.ONCHAINEXTRALAYER].includes(selectedWalletType)) {
       if (selectedIndex === 2) {
         // zero index radio - HD segwit
         w = new HDSegwitP2SHWallet();
         w.setLabel(label || loc.wallets.details_title);
-      } else if (selectedIndex === 1) {
+      }
+      else if (selectedIndex === 1) {
         // btc was selected
         // index 1 radio - segwit single address
         w = new SegwitP2SHWallet();
         w.setLabel(label || loc.wallets.details_title);
-      } else {
+      }
+      else {
         // btc was selected
         // index 2 radio - hd bip84
         w = new HDSegwitBech32Wallet();
         w.setLabel(label || loc.wallets.details_title);
       }
-      if (selectedWalletType === Chain.ONCHAIN) {
+
+      if (selectedWalletType === Chain.ONCHAINEXTRALAYER) {
+        w = new HDSegwitBech32ExtraLayer();
+        w.setLabel(label || loc.wallets.details_title);
+      }
+
+      if ([Chain.ONCHAIN, Chain.ONCHAINEXTRALAYER].includes(selectedWalletType)) {
         if (entropy) {
           try {
             await w.generateFromEntropy(entropy);
@@ -137,9 +145,10 @@ const WalletsAdd = () => {
         setNewWalletAdded(true);
         A(A.ENUM.CREATED_WALLET);
         ReactNativeHapticFeedback.trigger('notificationSuccess', { ignoreAndroidSystemSettings: false });
-        if (w.type === HDSegwitP2SHWallet.type || w.type === HDSegwitBech32Wallet.type) {
+        if (w.type === HDSegwitP2SHWallet.type || w.type === HDSegwitBech32Wallet.type || w.type === HDSegwitBech32ExtraLayer.type) {
           navigate('PleaseBackup', {
             secret: w.getSecret(),
+            walletType: selectedWalletType
           });
         } else {
           goBack();
@@ -241,10 +250,10 @@ const WalletsAdd = () => {
         </View>
         <View style={styles.buttons}>
           <BitcoinExtraLayerButton
-              testID="ActivateBitcoinExtraLayerButton"
-              active={selectedWalletType === Chain.ONCHAINEXTRALAYER}
-              onPress={handleOnBitcoinExtraLayerButtonPressed}
-              style={styles.button}
+            testID="ActivateBitcoinExtraLayerButton"
+            active={selectedWalletType === Chain.ONCHAINEXTRALAYER}
+            onPress={handleOnBitcoinExtraLayerButtonPressed}
+            style={styles.button}
           />
         </View>
         <View style={styles.advanced}>

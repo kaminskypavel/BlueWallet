@@ -4,13 +4,17 @@ import { useNavigation, useRoute, useTheme } from '@react-navigation/native';
 import { BlueSpacing20, SafeBlueArea, BlueNavigationStyle, BlueText, BlueButton, TypingDNAButton } from '../../BlueComponents';
 import Privacy from '../../Privacy';
 import loc from '../../loc';
+import {Chain} from "../../models/bitcoinUnits";
 
 const PleaseBackup = () => {
   const [isLoading, setIsLoading] = useState(true);
   const route = useRoute();
   const words = route.params.secret.split(' ');
+  const {walletType} = route.params;
   const navigation = useNavigation();
   const { colors } = useTheme();
+
+  const isExtraLayerWalletType =  walletType ===Chain.ONCHAINEXTRALAYER;
   const styles = StyleSheet.create({
     flex: {
       flex: 1,
@@ -116,8 +120,8 @@ const PleaseBackup = () => {
           <View style={styles.secret}>{renderSecret()}</View>
 
           <BlueSpacing20 />
-          <BlueButton testID="PleasebackupOk" onPress={handleBackButton} title={loc.pleasebackup.ok} />
-          <TypingDNAButton testID="TypeDNAOk" onPress={handleTypingDNAButton} title="More Security 💪" />
+          {!isExtraLayerWalletType && <BlueButton testID="PleasebackupOk" onPress={handleBackButton} title={loc.pleasebackup.ok} />}
+          {isExtraLayerWalletType && <TypingDNAButton testID="TypeDNAOk" onPress={handleTypingDNAButton} title="Start Typing Security" />}
         </View>
       </ScrollView>
     </SafeBlueArea>
