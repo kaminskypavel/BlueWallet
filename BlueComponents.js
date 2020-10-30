@@ -270,7 +270,7 @@ export const BitcoinExtraLayerButton = props => {
         }}
       >
         <View style={{ margin: 16, marginBottom: -5 }}>
-          <Text style={{ color: colors.alternativeTextColor, fontWeight: 'bold' }}>Bitcoin Extra Layer</Text>
+          <Text style={{ color: colors.alternativeTextColor, fontWeight: 'bold' }}>Bitcoin DNA-Layer</Text>
           <Text style={{ color: colors.alternativeTextColor, fontWeight: 'bold' }}>(TypingDNA)</Text>
         </View>
         <Image
