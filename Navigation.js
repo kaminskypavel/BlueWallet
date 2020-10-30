@@ -174,13 +174,10 @@ const WalletsRoot = () => (
 const AddWalletStack = createStackNavigator();
 const AddWalletRoot = () => (
     <AddWalletStack.Navigator screenOptions={defaultStackScreenOptions}>
-        {/* // @todo : remove this after building initial demo */}
-        <AddWalletStack.Screen name="TypingDNASetup" component={TypingDNASetup}
-                               options={TypingDNASetup.navigationOptions}/>
         <AddWalletStack.Screen name="AddWallet" component={AddWallet} options={AddWallet.navigationOptions}/>
         <AddWalletStack.Screen name="ImportWallet" component={ImportWallet} options={ImportWallet.navigationOptions}/>
         <AddWalletStack.Screen name="PleaseBackup" component={PleaseBackup} options={PleaseBackup.navigationOptions}/>
-        {/* <AddWalletStack.Screen name="TypingDNASetup" component={TypingDNASetup} options={TypingDNASetup.navigationOptions} /> */}
+         <AddWalletStack.Screen name="TypingDNASetup" component={TypingDNASetup} options={TypingDNASetup.navigationOptions} />
         <AddWalletStack.Screen name="PleaseBackupLNDHub" component={PleaseBackupLNDHub}
                                options={PleaseBackupLNDHub.navigationOptions}/>
         <AddWalletStack.Screen name="ProvideEntropy" component={ProvideEntropy}
