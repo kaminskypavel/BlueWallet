@@ -5,6 +5,7 @@ import { HDLegacyBreadwalletWallet } from './wallets/hd-legacy-breadwallet-walle
 import { HDLegacyP2PKHWallet } from './wallets/hd-legacy-p2pkh-wallet';
 import { WatchOnlyWallet } from './wallets/watch-only-wallet';
 import { HDSegwitBech32Wallet } from './wallets/hd-segwit-bech32-wallet';
+import { HDsegwitBech32ExtraLayer } from './wallets/hd-segwit-bech32-extra-layer-wallet';
 import { PlaceholderWallet } from './wallets/placeholder-wallet';
 import { SegwitBech32Wallet } from './wallets/segwit-bech32-wallet';
 import { HDLegacyElectrumSeedP2PKHWallet } from './wallets/hd-legacy-electrum-seed-p2pkh-wallet';
@@ -13,6 +14,7 @@ import { MultisigHDWallet } from './wallets/multisig-hd-wallet';
 import { useTheme } from '@react-navigation/native';
 
 export default class WalletGradient {
+  static hdSegwitP2SHExtraLayerWallet = ['#1100ff', '#9fd800'];
   static hdSegwitP2SHWallet = ['#65ceef', '#68bbe1'];
   static hdSegwitBech32Wallet = ['#68bbe1', '#3b73d4'];
   static segwitBech32Wallet = ['#f8bbe1', '#945a90'];
@@ -48,6 +50,9 @@ export default class WalletGradient {
         break;
       case HDSegwitP2SHWallet.type:
         gradient = WalletGradient.hdSegwitP2SHWallet;
+        break;
+      case HDsegwitBech32ExtraLayer.type:
+        gradient = WalletGradient.hdSegwitP2SHExtraLayerWallet;
         break;
       case HDSegwitBech32Wallet.type:
       case HDSegwitElectrumSeedP2WPKHWallet.type:

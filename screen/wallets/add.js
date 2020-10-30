@@ -24,6 +24,7 @@ import {
   BlueNavigationStyle,
   BlueButtonLinkHook,
   BlueSpacing20,
+  BitcoinExtraLayerButton,
 } from '../../BlueComponents';
 import { HDSegwitBech32Wallet, SegwitP2SHWallet, HDSegwitP2SHWallet, LightningCustodianWallet, AppStorage } from '../../class';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -196,6 +197,11 @@ const WalletsAdd = () => {
     setSelectedWalletType(Chain.ONCHAIN);
   };
 
+  const handleOnBitcoinExtraLayerButtonPressed = () => {
+    Keyboard.dismiss();
+    setSelectedWalletType(Chain.ONCHAINEXTRALAYER);
+  };
+
   const handleOnLightningButtonPressed = () => {
     Keyboard.dismiss();
     setSelectedWalletType(Chain.OFFCHAIN);
@@ -233,7 +239,14 @@ const WalletsAdd = () => {
           </View>
           <LightningButton active={selectedWalletType === Chain.OFFCHAIN} onPress={handleOnLightningButtonPressed} style={styles.button} />
         </View>
-
+        <View style={styles.buttons}>
+          <BitcoinExtraLayerButton
+              testID="ActivateBitcoinExtraLayerButton"
+              active={selectedWalletType === Chain.ONCHAINEXTRALAYER}
+              onPress={handleOnBitcoinExtraLayerButtonPressed}
+              style={styles.button}
+          />
+        </View>
         <View style={styles.advanced}>
           {(() => {
             if (selectedWalletType === Chain.ONCHAIN && isAdvancedOptionsEnabled) {

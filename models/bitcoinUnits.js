@@ -6,6 +6,7 @@ export const BitcoinUnit = Object.freeze({
 });
 
 export const Chain = Object.freeze({
+  ONCHAINEXTRALAYER: 'ONCHAINEXTRALAYER',
   ONCHAIN: 'ONCHAIN',
   OFFCHAIN: 'OFFCHAIN',
 });

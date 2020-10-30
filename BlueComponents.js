@@ -49,6 +49,7 @@ import loc, { formatBalance, formatBalanceWithoutSuffix, formatBalancePlain, rem
 import Lnurl from './class/lnurl';
 import { BlueStorageContext } from './blue_modules/storage-context';
 import { presentCameraNotAuthorizedAlert } from './class/camera';
+
 /** @type {AppStorage} */
 const { height, width } = Dimensions.get('window');
 const aspectRatio = height / width;
@@ -109,7 +110,9 @@ export const TypingDNAButton = props => {
   const { colors } = useTheme();
   const { width } = useWindowDimensions();
 
-  let backgroundColor = props.backgroundColor ? props.backgroundColor : colors.buttonTypingDNABackgroundColor || BlueCurrentTheme.colors.mainColor;
+  let backgroundColor = props.backgroundColor
+    ? props.backgroundColor
+    : colors.buttonTypingDNABackgroundColor || BlueCurrentTheme.colors.mainColor;
   let fontColor = colors.buttonTextColor;
   if (props.disabled === true) {
     backgroundColor = colors.buttonDisabledBackgroundColor;
@@ -235,7 +238,49 @@ export const BitcoinButton = props => {
           <Text style={{ color: colors.hdborderColor, fontWeight: 'bold' }}>{loc.wallets.add_bitcoin}</Text>
         </View>
         <Image
-          style={{ width: 34, height: 34, marginRight: 8, marginBottom: 8, justifyContent: 'flex-end', alignSelf: 'flex-end' }}
+          style={{
+            width: 34,
+            height: 34,
+            marginRight: 8,
+            marginBottom: 8,
+            justifyContent: 'flex-end',
+            alignSelf: 'flex-end',
+          }}
+          source={require('./img/addWallet/bitcoin.png')}
+        />
+      </View>
+    </TouchableOpacity>
+  );
+};
+
+export const BitcoinExtraLayerButton = props => {
+  const { colors } = useTheme();
+  return (
+    <TouchableOpacity testID={props.testID} onPress={props.onPress}>
+      <View
+        style={{
+          borderColor: colors.buttonTextColor,
+          borderWidth: 1,
+          borderRadius: 5,
+          backgroundColor: (props.active && colors.successCheck) || colors.brandingColor,
+          minWidth: props.style.width,
+          minHeight: props.style.height,
+          height: props.style.height,
+          flex: 1,
+        }}
+      >
+        <View style={{ margin: 16, marginBottom: -5 }}>
+          <Text style={{ color: colors.alternativeTextColor, fontWeight: 'bold' }}>Bitcoin Extra Layer</Text>
+          <Text style={{ color: colors.alternativeTextColor, fontWeight: 'bold' }}>(TypingDNA)</Text>
+        </View>
+        <Image
+          style={{
+            width: 34,
+            height: 34,
+            marginRight: 8,
+            justifyContent: 'flex-end',
+            alignSelf: 'flex-end',
+          }}
           source={require('./img/addWallet/bitcoin.png')}
         />
       </View>
@@ -263,7 +308,14 @@ export const LightningButton = props => {
           <Text style={{ color: colors.lnborderColor, fontWeight: 'bold' }}>{loc.wallets.add_lightning}</Text>
         </View>
         <Image
-          style={{ width: 34, height: 34, marginRight: 8, marginBottom: 8, justifyContent: 'flex-end', alignSelf: 'flex-end' }}
+          style={{
+            width: 34,
+            height: 34,
+            marginRight: 8,
+            marginBottom: 8,
+            justifyContent: 'flex-end',
+            alignSelf: 'flex-end',
+          }}
           source={require('./img/addWallet/lightning.png')}
         />
       </View>
@@ -278,7 +330,11 @@ export class BlueWalletNavigationHeader extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    return { wallet: props.wallet, onWalletUnitChange: props.onWalletUnitChange, allowOnchainAddress: state.allowOnchainAddress };
+    return {
+      wallet: props.wallet,
+      onWalletUnitChange: props.onWalletUnitChange,
+      allowOnchainAddress: state.allowOnchainAddress,
+    };
   }
 
   static contextType = BlueStorageContext;
@@ -533,7 +589,15 @@ export class BlueButtonLink extends Component {
         }}
         {...this.props}
       >
-        <Text style={{ color: BlueCurrentTheme.colors.foregroundColor, textAlign: 'center', fontSize: 16 }}>{this.props.title}</Text>
+        <Text
+          style={{
+            color: BlueCurrentTheme.colors.foregroundColor,
+            textAlign: 'center',
+            fontSize: 16,
+          }}
+        >
+          {this.props.title}
+        </Text>
       </TouchableOpacity>
     );
   }
@@ -653,7 +717,15 @@ export const BluePrivateBalance = () => {
 export const BlueCopyToClipboardButton = ({ stringToCopy, displayText = false }) => {
   return (
     <TouchableOpacity onPress={() => Clipboard.setString(stringToCopy)}>
-      <Text style={{ fontSize: 13, fontWeight: '400', color: '#68bbe1' }}>{displayText || loc.transactions.details_copy}</Text>
+      <Text
+        style={{
+          fontSize: 13,
+          fontWeight: '400',
+          color: '#68bbe1',
+        }}
+      >
+        {displayText || loc.transactions.details_copy}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -760,6 +832,7 @@ export const BlueTextHooks = props => {
     />
   );
 };
+
 export class BlueTextCentered extends Component {
   render() {
     return <Text {...this.props} style={{ color: BlueCurrentTheme.colors.foregroundColor, textAlign: 'center' }} />;
@@ -1840,6 +1913,7 @@ export const BlueTransactionListItem = React.memo(({ item, itemPriceUnit = Bitco
 });
 
 const isDesktop = getSystemName() === 'Mac OS X';
+
 export class BlueAddressInput extends Component {
   static propTypes = {
     isLoading: PropTypes.bool,
@@ -1990,7 +2064,14 @@ export class BlueAddressInput extends Component {
           }}
         >
           <Image style={{}} source={require('./img/scan-white.png')} />
-          <Text style={{ marginLeft: 4, color: BlueCurrentTheme.colors.inverseForegroundColor }}>{loc.send.details_scan}</Text>
+          <Text
+            style={{
+              marginLeft: 4,
+              color: BlueCurrentTheme.colors.inverseForegroundColor,
+            }}
+          >
+            {loc.send.details_scan}
+          </Text>
         </TouchableOpacity>
       </View>
     );
@@ -2080,11 +2161,22 @@ export class BlueReplaceFeeSuggestions extends Component {
               onPress={() => this.onFeeSelected(type)}
               style={[
                 { paddingHorizontal: 16, paddingVertical: 8, marginBottom: 10 },
-                active && { borderRadius: 8, backgroundColor: BlueCurrentTheme.colors.incomingBackgroundColor },
+                active && {
+                  borderRadius: 8,
+                  backgroundColor: BlueCurrentTheme.colors.incomingBackgroundColor,
+                },
               ]}
             >
               <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 22, color: BlueCurrentTheme.colors.successColor, fontWeight: '600' }}>{label}</Text>
+                <Text
+                  style={{
+                    fontSize: 22,
+                    color: BlueCurrentTheme.colors.successColor,
+                    fontWeight: '600',
+                  }}
+                >
+                  {label}
+                </Text>
                 <View
                   style={{
                     backgroundColor: BlueCurrentTheme.colors.successColor,
@@ -2112,9 +2204,24 @@ export class BlueReplaceFeeSuggestions extends Component {
           ]}
         >
           <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center' }}>
-            <Text style={{ fontSize: 22, color: BlueCurrentTheme.colors.successColor, fontWeight: '600' }}>{loc.send.fee_custom}</Text>
+            <Text
+              style={{
+                fontSize: 22,
+                color: BlueCurrentTheme.colors.successColor,
+                fontWeight: '600',
+              }}
+            >
+              {loc.send.fee_custom}
+            </Text>
           </View>
-          <View style={{ justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', marginTop: 5 }}>
+          <View
+            style={{
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              alignItems: 'center',
+              marginTop: 5,
+            }}
+          >
             <TextInput
               onChangeText={this.onCustomFeeTextChange}
               keyboardType="numeric"
@@ -2297,7 +2404,13 @@ export class BlueBitcoinAmount extends Component {
           {!this.props.disabled && <View style={{ alignSelf: 'center', padding: amount === BitcoinUnit.MAX ? 0 : 15 }} />}
           <View style={{ flex: 1 }}>
             <View
-              style={{ flexDirection: 'row', alignContent: 'space-between', justifyContent: 'center', paddingTop: 16, paddingBottom: 2 }}
+              style={{
+                flexDirection: 'row',
+                alignContent: 'space-between',
+                justifyContent: 'center',
+                paddingTop: 16,
+                paddingBottom: 2,
+              }}
             >
               {this.state.unit === BitcoinUnit.LOCAL_CURRENCY && amount !== BitcoinUnit.MAX && (
                 <Text
@@ -2422,6 +2535,7 @@ export class BlueBitcoinAmount extends Component {
     );
   }
 }
+
 const styles = StyleSheet.create({
   balanceBlur: {
     height: 30,
