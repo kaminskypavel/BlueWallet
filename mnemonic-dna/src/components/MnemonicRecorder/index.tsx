@@ -1,7 +1,7 @@
 import {isRunningInWebView} from "../../services/ReactTools";
 import crypto from "crypto-js";
 import React, {useContext, useEffect, useState} from "react";
-import {createUser} from "../../services/TypingDNA";
+import {createUser, enrollPattern} from "../../services/TypingDNA";
 import WordValidate from "../WordValidate";
 import {TypingDNAContext} from "../../context";
 import "./styles.scss";
@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const MnemonicRecorder = ({words}: Props) => {
-    const MAX_WRODS_VALIDATE = isRunningInWebView() ? words.length : 2;
+    const MAX_WORDS_VALIDATE = isRunningInWebView() ? words.length: Math.min(words.length, 5);
     const tdna = useContext(TypingDNAContext);
 
     useEffect(() => {
@@ -20,14 +20,17 @@ export const MnemonicRecorder = ({words}: Props) => {
 
     const [currentWordIdx, setCurrentWordIdx] = useState(0);
 
+
     const onWordVerified = async () => {
         const pattern = tdna.getTypingPattern();
-        if (currentWordIdx < MAX_WRODS_VALIDATE - 1)
+        const username = crypto.SHA256(words.join(" ")).toString()
+
+        if (currentWordIdx < MAX_WORDS_VALIDATE - 1) {
             setCurrentWordIdx(currentWordIdx + 1);
-        else {
-            const username = crypto.SHA256(words.join(" ")).toString()
-            const res = await createUser(username, pattern)
-            const {success} = res.data;
+            enrollPattern(username, pattern).then(console.log)
+        } else {
+            const data = await createUser(username, pattern)
+            const {success} = data;
 
             if (success) {
                 closeWindow()
