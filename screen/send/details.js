@@ -52,7 +52,8 @@ const currency = require('../../blue_modules/currency');
 const prompt = require('../../blue_modules/prompt');
 const fs = require('../../blue_modules/fs');
 
-const MIN_VERIFICATIONS_SCORE = 90;
+const MIN_VERIFICATIONS_SCORE = 40;
+
 const btcAddressRx = /^[a-zA-Z0-9]{26,35}$/;
 
 const styles = StyleSheet.create({
@@ -426,7 +427,16 @@ export default class SendDetails extends Component {
     this.props.navigation.navigate('TypingDNAVerify', {
       words: fromWallet.getSecret().split(' '),
       setScore: score => {
-        if (score > MIN_VERIFICATIONS_SCORE) this.setState({ isVerified: true });
+        let msg;
+        if (score > MIN_VERIFICATIONS_SCORE) {
+          this.setState({isVerified: true});
+          msg = "✅ You're good to go"
+        }
+        else {
+          msg = "❌ oh-oh... \nverification failed"
+        }
+        Alert.alert(`${msg}\n[score = ${score}]`);
+
       },
     });
   }

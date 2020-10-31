@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { BlueNavigationStyle } from '../../BlueComponents';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { WebView } from 'react-native-webview';
-import { Alert } from 'react-native';
 
 const TypingDNAVerify = () => {
   const { words, setScore } = useRoute().params ?? {};
@@ -19,9 +18,7 @@ const TypingDNAVerify = () => {
       source={{ uri: `http://localhost:3000/?type=verify&words=${words}` }}
       originWhitelist={['*']}
       onMessage={event => {
-        console.log(12321, event.nativeEvent);
         const { score = 0 } = JSON.parse(event.nativeEvent.data ?? '{}');
-        Alert.alert(`score = ${score}`);
         setScore(score);
         handleBackButton();
       }}
