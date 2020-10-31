@@ -1,4 +1,4 @@
-# BioWallet - a bitcoin ₿ wallet + biometric protection
+# BioWallet - a Bitcoin wallet (₿) with biometric protection
 ---
 A Thin Bitcoin Wallet, Based on the popular [BlueWallet](www.bluewallet.io).
 
