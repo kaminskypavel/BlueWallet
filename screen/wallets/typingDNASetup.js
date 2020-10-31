@@ -26,7 +26,7 @@ const TypingDNASetup = () => {
 };
 
 TypingDNASetup.navigationOptions = ({ navigation }) => ({
-  ...BlueNavigationStyle(navigation, true),
+  ...BlueNavigationStyle(navigation, false),
   title: 'TypingDNA setup',
   headerLeft: null,
 });
