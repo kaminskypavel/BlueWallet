@@ -72,6 +72,7 @@ import {BlueNavigationStyle} from './BlueComponents';
 import DrawerList from './screen/wallets/drawerList';
 import {isTablet} from 'react-native-device-info';
 import SettingsPrivacy from './screen/settings/SettingsPrivacy';
+import TypingDNAVerify from "./screen/send/typingDNAVerify";
 
 const defaultScreenOptions =
     Platform.OS === 'ios'
@@ -106,6 +107,7 @@ const WalletsStack = createStackNavigator();
 const WalletsRoot = () => (
     <WalletsStack.Navigator {...(Platform.OS === 'android' ? {screenOptions: defaultScreenOptions} : null)}>
         <WalletsStack.Screen name="WalletsList" component={WalletsList}/>
+        <WalletsStack.Screen name="TypingDNAVerify" component={TypingDNAVerify}/>
         <WalletsStack.Screen name="WalletTransactions" component={WalletTransactions}
                              options={WalletTransactions.navigationOptions}/>
         <WalletsStack.Screen name="WalletDetails" component={WalletDetails} options={WalletDetails.navigationOptions}/>
