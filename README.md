@@ -2,6 +2,8 @@
 ---
 A Thin Bitcoin Wallet, Based on the popular [BlueWallet](www.bluewallet.io).
 
+[![WebView Status](https://api.netlify.com/api/v1/badges/e2908450-1c30-47ed-858f-506324174d62/deploy-status)](https://app.netlify.com/sites/biowallet/deploys)
+
 Integrated with [TypingDNA](typingdna.com) biometrics authentication
 
 ---
