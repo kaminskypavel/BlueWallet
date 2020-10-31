@@ -6,6 +6,7 @@ import WordValidate from "../WordValidate";
 import {TypingDNAContext} from "../../context";
 import "./styles.scss";
 import sampleSize from "lodash/sampleSize";
+import {Line} from "rc-progress";
 
 type Props = {
     words: string[]
@@ -15,7 +16,7 @@ const MAX_WORDS_VALIDATE = isRunningInWebView() ? 3 : 3;
 
 export const MnemonicVerifier = ({words}: Props) => {
     const tdna = useContext(TypingDNAContext);
-    const randomWords=  sampleSize(words,MAX_WORDS_VALIDATE)
+    const randomWords = sampleSize(words, MAX_WORDS_VALIDATE)
 
     useEffect(() => {
         tdna.start()
@@ -39,7 +40,7 @@ export const MnemonicVerifier = ({words}: Props) => {
         }
     }
 
-    const closeAndSendToWallet = (data:any) => {
+    const closeAndSendToWallet = (data: any) => {
         isRunningInWebView() ? window.ReactNativeWebView.postMessage(JSON.stringify(data)) :
             alert("windows is closed")
     }
@@ -53,6 +54,8 @@ export const MnemonicVerifier = ({words}: Props) => {
                 word={randomWords[currentWordIdx]}
                 onComplete={onWordVerified}/>
             <br/>
+            <Line percent={currentWordIdx / randomWords.length * 100} strokeWidth={4} strokeColor="#0f5cc0"
+                  className="progress-bar"/>
         </div>
     );
 
