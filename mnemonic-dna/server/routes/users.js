@@ -16,7 +16,7 @@ router.post('/:id', function (req, res, next) {
             res.status(400).send(err);
             throw new Error('Error inserting data');
         }
-        res.send(`saved`);
+        res.send(result);
     })
 });
 
