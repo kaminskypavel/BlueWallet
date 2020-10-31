@@ -5,20 +5,21 @@ import {verifyUser} from "../../services/TypingDNA";
 import WordValidate from "../WordValidate";
 import {TypingDNAContext} from "../../context";
 import "./styles.scss";
+import sampleSize from "lodash/sampleSize";
 
 type Props = {
     words: string[]
 }
 
-const MAX_WORDS_VALIDATE = isRunningInWebView() ? 4 : 2;
+const MAX_WORDS_VALIDATE = isRunningInWebView() ? 3 : 3;
 
 export const MnemonicVerifier = ({words}: Props) => {
     const tdna = useContext(TypingDNAContext);
-
+    const randomWords=  sampleSize(words,MAX_WORDS_VALIDATE)
 
     useEffect(() => {
         tdna.start()
-    }, [words, tdna])
+    }, [randomWords, tdna])
 
     const [currentWordIdx, setCurrentWordIdx] = useState(0);
 
@@ -28,8 +29,7 @@ export const MnemonicVerifier = ({words}: Props) => {
             setCurrentWordIdx(currentWordIdx + 1);
         else {
             const username = crypto.SHA256(words.join(" ")).toString()
-            const res = await verifyUser(username, pattern)
-            const {data} = res;
+            const data = await verifyUser(username, pattern)
 
             if (data.success) {
                 closeAndSendToWallet(data)
@@ -51,11 +51,11 @@ export const MnemonicVerifier = ({words}: Props) => {
             {/*<small>Running on Mobile = {isRunningInWebView().toString()}</small>*/}
             <WordValidate
                 prefix={currentWordIdx + 1 + "."}
-                word={words[currentWordIdx]}
+                word={randomWords[currentWordIdx]}
                 onComplete={onWordVerified}/>
             <br/>
             <div className="wrapper">
-                {words.slice(0,MAX_WORDS_VALIDATE).map((w, i) =>
+                {randomWords.slice(0,MAX_WORDS_VALIDATE).map((w, i) =>
                     <small key={w} className={`word ${i < currentWordIdx ? "verified" : ""} `}>{i}. {w}</small>)}
             </div>
         </div>
