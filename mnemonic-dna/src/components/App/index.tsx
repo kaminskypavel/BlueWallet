@@ -6,7 +6,8 @@ import {MnemonicVerifier} from '../MnemonicVerifier';
 
 // routing is done by applying ?type=record/verify to the querystring
 const App = () => {
-    const queryStringObj = qs.parse(window.location.search, {arrayFormat: "comma"});
+    const queryStringObj = qs.parse(window.location.search);
+
     const type = queryStringObj.type ?? "record";
     const words = queryStringObj?.words?.toString().split(",") ?? ["bird", "is", "the", "word"]
 

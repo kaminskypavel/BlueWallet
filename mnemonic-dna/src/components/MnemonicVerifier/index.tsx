@@ -10,7 +10,7 @@ type Props = {
     words: string[]
 }
 
-const MAX_WORDS_VALIDATE = isRunningInWebView() ? 2 : 2;
+const MAX_WORDS_VALIDATE = isRunningInWebView() ? 4 : 2;
 
 export const MnemonicVerifier = ({words}: Props) => {
     const tdna = useContext(TypingDNAContext);

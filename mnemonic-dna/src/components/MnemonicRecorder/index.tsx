@@ -45,7 +45,7 @@ export const MnemonicRecorder = ({words}: Props) => {
     return (
         <div className="App">
             <h3>Recording your typing pattern</h3>
-            <small>Running on Mobile = {isRunningInWebView().toString()}</small>
+            {/*<small>Running on Mobile = {isRunningInWebView().toString()}</small>*/}
             <WordValidate
                 prefix={currentWordIdx + 1 + "."}
                 word={words[currentWordIdx]}

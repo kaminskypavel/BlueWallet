@@ -29,6 +29,7 @@ import {
   BlueUseAllFundsButton,
   BlueListItem,
   BlueText,
+  TypingDNAButton,
 } from '../../BlueComponents';
 import Modal from 'react-native-modal';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
@@ -46,10 +47,12 @@ import loc from '../../loc';
 import { BlueCurrentTheme } from '../../components/themes';
 import { AbstractHDElectrumWallet } from '../../class/wallets/abstract-hd-electrum-wallet';
 import { BlueStorageContext } from '../../blue_modules/storage-context';
+
 const currency = require('../../blue_modules/currency');
 const prompt = require('../../blue_modules/prompt');
 const fs = require('../../blue_modules/fs');
 
+const MIN_VERIFICATIONS_SCORE = 90;
 const btcAddressRx = /^[a-zA-Z0-9]{26,35}$/;
 
 const styles = StyleSheet.create({
@@ -210,7 +213,7 @@ const styles = StyleSheet.create({
 
 export default class SendDetails extends Component {
   static contextType = BlueStorageContext;
-  state = { isLoading: true };
+  state = { isLoading: true, isVerified: false };
 
   constructor(props, context) {
     super(props);
@@ -232,6 +235,7 @@ export default class SendDetails extends Component {
         fromWallet = wallets[0];
       }
       this.state = {
+        isVerified: false,
         isLoading: false,
         showSendMax: false,
         isFeeSelectionModalVisible: false,
@@ -339,7 +343,13 @@ export default class SendDetails extends Component {
         const { address, amount, memo, payjoinUrl } = DeeplinkSchemaMatch.decodeBitcoinUri(uri);
         addresses.push(new BitcoinTransaction(address, amount, currency.btcToSatoshi(amount)));
         initialMemo = memo;
-        this.setState({ addresses, memo: initialMemo, isLoading: false, amountUnit: BitcoinUnit.BTC, payjoinUrl });
+        this.setState({
+          addresses,
+          memo: initialMemo,
+          isLoading: false,
+          amountUnit: BitcoinUnit.BTC,
+          payjoinUrl,
+        });
       } catch (error) {
         console.log(error);
         alert(loc.send.details_error_decode);
@@ -410,6 +420,16 @@ export default class SendDetails extends Component {
   _keyboardDidHide = () => {
     this.setState({ renderWalletSelectionButtonHidden: false, isAmountToolbarVisibleForAndroid: false });
   };
+
+  async verifyIdentity() {
+    const { fromWallet } = this.state;
+    this.props.navigation.navigate('TypingDNAVerify', {
+      words: fromWallet.getSecret().split(' '),
+      setScore: score => {
+        if (score > MIN_VERIFICATIONS_SCORE) this.setState({ isVerified: true });
+      },
+    });
+  }
 
   async createTransaction() {
     Keyboard.dismiss();
@@ -695,11 +715,21 @@ export default class SendDetails extends Component {
                   const feeSatoshi = new BigNumber(element.amount).multipliedBy(100000000);
                   return element.address.length > 0 && feeSatoshi > 0;
                 }) || this.state.addresses[0];
-              this.setState({ addresses: [firstTransaction], recipientsScrollIndex: 0 }, () => changeWallet());
+              this.setState(
+                {
+                  addresses: [firstTransaction],
+                  recipientsScrollIndex: 0,
+                },
+                () => changeWallet(),
+              );
             },
             style: 'default',
           },
-          { text: loc._.cancel, onPress: () => {}, style: 'cancel' },
+          {
+            text: loc._.cancel,
+            onPress: () => {},
+            style: 'cancel',
+          },
         ],
         { cancelable: false },
       );
@@ -717,11 +747,21 @@ export default class SendDetails extends Component {
                   return element.amount === BitcoinUnit.MAX;
                 }) || this.state.addresses[0];
               firstTransaction.amount = 0;
-              this.setState({ addresses: [firstTransaction], recipientsScrollIndex: 0 }, () => changeWallet());
+              this.setState(
+                {
+                  addresses: [firstTransaction],
+                  recipientsScrollIndex: 0,
+                },
+                () => changeWallet(),
+              );
             },
             style: 'default',
           },
-          { text: loc._.cancel, onPress: () => {}, style: 'cancel' },
+          {
+            text: loc._.cancel,
+            onPress: () => {},
+            style: 'cancel',
+          },
         ],
         { cancelable: false },
       );
@@ -1023,7 +1063,10 @@ export default class SendDetails extends Component {
               <BlueListItem
                 title={loc.send.details_adv_fee_bump}
                 Component={TouchableWithoutFeedback}
-                switch={{ value: this.state.isTransactionReplaceable, onValueChange: this.onReplaceableFeeSwitchValueChanged }}
+                switch={{
+                  value: this.state.isTransactionReplaceable,
+                  onValueChange: this.onReplaceableFeeSwitchValueChanged,
+                }}
               />
             )}
             {this.state.fromWallet.type === WatchOnlyWallet.type &&
@@ -1086,7 +1129,15 @@ export default class SendDetails extends Component {
         {this.state.isLoading ? (
           <ActivityIndicator />
         ) : (
-          <BlueButton onPress={() => this.createTransaction()} title={loc.send.details_next} testID="CreateTransactionButton" />
+          <>
+            <TypingDNAButton onPress={() => this.verifyIdentity()} title="Verify Identity" testID="verifyIdentity" />
+            <BlueButton
+              disabled={!this.state.isVerified}
+              onPress={() => this.createTransaction()}
+              title={loc.send.details_next}
+              testID="CreateTransactionButton"
+            />
+          </>
         )}
       </View>
     );
@@ -1100,7 +1151,10 @@ export default class SendDetails extends Component {
           <TouchableOpacity
             style={styles.selectTouch}
             onPress={() =>
-              this.props.navigation.navigate('SelectWallet', { onWalletSelect: this.onWalletSelect, chainType: Chain.ONCHAIN })
+              this.props.navigation.navigate('SelectWallet', {
+                onWalletSelect: this.onWalletSelect,
+                chainType: Chain.ONCHAIN,
+              })
             }
           >
             <Text style={styles.selectText}>{loc.wallets.select_wallet.toLowerCase()}</Text>
@@ -1111,7 +1165,10 @@ export default class SendDetails extends Component {
           <TouchableOpacity
             style={styles.selectTouch}
             onPress={() =>
-              this.props.navigation.navigate('SelectWallet', { onWalletSelect: this.onWalletSelect, chainType: Chain.ONCHAIN })
+              this.props.navigation.navigate('SelectWallet', {
+                onWalletSelect: this.onWalletSelect,
+                chainType: Chain.ONCHAIN,
+              })
             }
           >
             <Text style={styles.selectLabel}>{this.state.fromWallet.getLabel()}</Text>
@@ -1219,7 +1276,12 @@ export default class SendDetails extends Component {
             launchedBy={this.props.route.name}
           />
           {this.state.addresses.length > 1 && (
-            <BlueText style={styles.of}>{loc.formatString(loc._.of, { number: index + 1, total: this.state.addresses.length })}</BlueText>
+            <BlueText style={styles.of}>
+              {loc.formatString(loc._.of, {
+                number: index + 1,
+                total: this.state.addresses.length,
+              })}
+            </BlueText>
           )}
         </View>,
       );
@@ -1249,7 +1311,11 @@ export default class SendDetails extends Component {
           },
           style: 'default',
         },
-        { text: loc._.cancel, onPress: () => {}, style: 'cancel' },
+        {
+          text: loc._.cancel,
+          onPress: () => {},
+          style: 'cancel',
+        },
       ],
       { cancelable: false },
     );
