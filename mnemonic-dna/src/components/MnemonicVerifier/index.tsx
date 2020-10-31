@@ -10,7 +10,7 @@ type Props = {
     words: string[]
 }
 
-export const MnemonicRecorder = ({words}: Props) => {
+export const MnemonicVerifier = ({words}: Props) => {
     const MAX_WRODS_VALIDATE = isRunningInWebView() ? words.length : 2;
     const tdna = useContext(TypingDNAContext);
 
@@ -44,7 +44,7 @@ export const MnemonicRecorder = ({words}: Props) => {
 
     return (
         <div className="App">
-            <h3>Recording your typing pattern</h3>
+            <h3>Verifying your identity..</h3>
             <small>Running on Mobile = {isRunningInWebView().toString()}</small>
             <WordValidate
                 prefix={currentWordIdx + 1 + "."}
@@ -53,7 +53,7 @@ export const MnemonicRecorder = ({words}: Props) => {
             <br/>
             <div className="wrapper">
                 {words.map((w, i) =>
-                    <small key={w} className={`word ${i < currentWordIdx ? "bold" : ""} `}>{i}. {w}</small>)}
+                    <small key={w} className={`word ${i < currentWordIdx ? "verified" : ""} `}>{i}. {w}</small>)}
             </div>
         </div>
     );

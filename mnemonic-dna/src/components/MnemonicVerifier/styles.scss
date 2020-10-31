@@ -1,0 +1,17 @@
+.wrapper {
+  padding-top: 25px;
+  display: grid;
+  grid-template-columns: 25% 25% 25% 25%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.word {
+  margin: 10px
+}
+
+.verified {
+  font-weight: bold;
+  background: green;
+  color: black;
+}
