@@ -11,6 +11,8 @@ Integrated with [TypingDNA](typingdna.com) biometrics authentication
 ####  ⚠ THIS IS A PROOF OF CONCEPT - PLEASE DO NOT USE IT FOR STORING REAL BITCOINS (YET) ⚠ 
 
 ---
+
+## Watch a promo on [youtube](https://www.youtube.com/watch?v=aG_66TSgzBA)
 <img src="./assets/preview.gif">
 <img src="./assets/screenshots/screenshots1.png">
 <img src="./assets/screenshots/screenshots2.png">
