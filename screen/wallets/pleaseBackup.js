@@ -121,7 +121,7 @@ const PleaseBackup = () => {
 
           <BlueSpacing20 />
           {!isExtraLayerWalletType && <BlueButton testID="PleasebackupOk" onPress={handleBackButton} title={loc.pleasebackup.ok} />}
-          {isExtraLayerWalletType && <TypingDNAButton testID="TypeDNAOk" onPress={handleTypingDNAButton} title="Start Typing Security" />}
+          {isExtraLayerWalletType && <TypingDNAButton testID="TypeDNAOk" onPress={handleTypingDNAButton} title="Recording Biometrics 🔴" />}
         </View>
       </ScrollView>
     </SafeBlueArea>
