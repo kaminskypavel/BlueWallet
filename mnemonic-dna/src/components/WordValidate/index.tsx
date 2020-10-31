@@ -44,7 +44,8 @@ const WordPreview = ({word, onComplete, prefix}: Props) => {
                 type="text"
                 onChange={(val => validateTypedText(val))}
                 fields={word.length}
-                placeholder={word.toUpperCase().split("")}/>
+                // placeholder={word.split("")}
+            />
         </div>)
 
 }

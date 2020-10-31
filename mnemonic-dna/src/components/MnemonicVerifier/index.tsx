@@ -46,18 +46,13 @@ export const MnemonicVerifier = ({words}: Props) => {
 
     return (
         <div className="App">
-            <h2>Please verifying your identity..</h2>
-            <h3>Please type these {MAX_WORDS_VALIDATE} words</h3>
+            <h2>Biometric Verification 🔍</h2>
+            <h3>Please type the following {MAX_WORDS_VALIDATE} words</h3>
             {/*<small>Running on Mobile = {isRunningInWebView().toString()}</small>*/}
             <WordValidate
-                prefix={currentWordIdx + 1 + "."}
                 word={randomWords[currentWordIdx]}
                 onComplete={onWordVerified}/>
             <br/>
-            <div className="wrapper">
-                {randomWords.slice(0,MAX_WORDS_VALIDATE).map((w, i) =>
-                    <small key={w} className={`word ${i < currentWordIdx ? "verified" : ""} `}>{i}. {w}</small>)}
-            </div>
         </div>
     );
 
