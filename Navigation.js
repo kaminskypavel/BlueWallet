@@ -107,7 +107,6 @@ const WalletsStack = createStackNavigator();
 const WalletsRoot = () => (
     <WalletsStack.Navigator {...(Platform.OS === 'android' ? {screenOptions: defaultScreenOptions} : null)}>
         <WalletsStack.Screen name="WalletsList" component={WalletsList}/>
-        <WalletsStack.Screen name="TypingDNAVerify" component={TypingDNAVerify}/>
         <WalletsStack.Screen name="WalletTransactions" component={WalletTransactions}
                              options={WalletTransactions.navigationOptions}/>
         <WalletsStack.Screen name="WalletDetails" component={WalletDetails} options={WalletDetails.navigationOptions}/>
@@ -192,6 +191,7 @@ const SendDetailsStack = createStackNavigator();
 const SendDetailsRoot = () => (
     <SendDetailsStack.Navigator screenOptions={defaultStackScreenOptions}>
         <SendDetailsStack.Screen name="SendDetails" component={SendDetails} options={SendDetails.navigationOptions}/>
+        <WalletsStack.Screen name="TypingDNAVerify" component={TypingDNAVerify}/>
         <SendDetailsStack.Screen name="Confirm" component={Confirm} options={Confirm.navigationOptions}/>
         <SendDetailsStack.Screen
             name="PsbtWithHardwareWallet"
