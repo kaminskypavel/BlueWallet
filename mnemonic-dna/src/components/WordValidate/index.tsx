@@ -22,11 +22,6 @@ const WordPreview = ({word, onComplete, prefix}: Props) => {
         }
     }
 
-    const verifyComplete = () => {
-        if (word === typedText)
-            onComplete()
-    }
-
     return (
         <div className="container">
             <h1>
