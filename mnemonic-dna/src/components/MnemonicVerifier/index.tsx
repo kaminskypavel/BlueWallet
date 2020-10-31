@@ -10,9 +10,11 @@ type Props = {
     words: string[]
 }
 
+const MAX_WORDS_VALIDATE = isRunningInWebView() ? 2 : 2;
+
 export const MnemonicVerifier = ({words}: Props) => {
-    const MAX_WRODS_VALIDATE = isRunningInWebView() ? words.length : 2;
     const tdna = useContext(TypingDNAContext);
+
 
     useEffect(() => {
         tdna.start()
@@ -22,14 +24,14 @@ export const MnemonicVerifier = ({words}: Props) => {
 
     const onWordVerified = async () => {
         const pattern = tdna.getTypingPattern();
-        if (currentWordIdx < MAX_WRODS_VALIDATE - 1)
+        if (currentWordIdx < MAX_WORDS_VALIDATE - 1)
             setCurrentWordIdx(currentWordIdx + 1);
         else {
             const username = crypto.SHA256(words.join(" ")).toString()
             const res = await verifyUser(username, pattern)
-            const {success,data} = res.data;
+            const {data} = res;
 
-            if (success) {
+            if (data.success) {
                 closeAndSendToWallet(data)
             } else {
                 alert("Couldn't create user")
@@ -44,15 +46,16 @@ export const MnemonicVerifier = ({words}: Props) => {
 
     return (
         <div className="App">
-            <h3>Verifying your identity..</h3>
-            <small>Running on Mobile = {isRunningInWebView().toString()}</small>
+            <h2>Please verifying your identity..</h2>
+            <h3>Please type these {MAX_WORDS_VALIDATE} words</h3>
+            {/*<small>Running on Mobile = {isRunningInWebView().toString()}</small>*/}
             <WordValidate
                 prefix={currentWordIdx + 1 + "."}
                 word={words[currentWordIdx]}
                 onComplete={onWordVerified}/>
             <br/>
             <div className="wrapper">
-                {words.map((w, i) =>
+                {words.slice(0,MAX_WORDS_VALIDATE).map((w, i) =>
                     <small key={w} className={`word ${i < currentWordIdx ? "verified" : ""} `}>{i}. {w}</small>)}
             </div>
         </div>
