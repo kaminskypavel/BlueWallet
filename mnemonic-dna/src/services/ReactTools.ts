@@ -1,1 +1,1 @@
-export const isRuningInWebView = () => (window as any).ReactNativeWebView !== undefined
+export const isRunningInWebView = () => (window as any).ReactNativeWebView !== undefined
