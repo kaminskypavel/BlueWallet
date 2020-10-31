@@ -12,9 +12,16 @@ Integrated with [TypingDNA](typingdna.com) biometrics authentication
 
 ---
 <img src="./assets/preview.gif">
+<img src="./assets/screenshots/screenshots1.png">
+<img src="./assets/screenshots/screenshots2.png">
+<img src="./assets/screenshots/screenshots3.png">
 
 
 ## Build Instructions
+
+### To run this project please use the emulator
+(running on device is also possible bu will require to host
+the mnemonic-dna server on a real server)
 
 * In your console:
 
@@ -25,7 +32,7 @@ yarn
 ```
 
 
-### Setup Mnemonic-DNA Server 
+### Setup Mnemonic-DNA Client & Server 
 
 First, lets build the client recorder and verifier 
 ```
