@@ -4,6 +4,7 @@ import React, {useContext, useEffect, useState} from "react";
 import {verifyUser} from "../../services/TypingDNA";
 import WordValidate from "../WordValidate";
 import {TypingDNAContext} from "../../context";
+import "./styles.scss";
 
 type Props = {
     words: string[]
