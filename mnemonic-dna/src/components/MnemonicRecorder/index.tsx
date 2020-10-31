@@ -5,6 +5,7 @@ import {createUser, enrollPattern} from "../../services/TypingDNA";
 import WordValidate from "../WordValidate";
 import {TypingDNAContext} from "../../context";
 import "./styles.scss";
+import {Line} from "rc-progress";
 
 type Props = {
     words: string[]
@@ -46,15 +47,18 @@ export const MnemonicRecorder = ({words}: Props) => {
     }
 
     return (
-        <div className="App">
-            <h3>Recording your typing pattern</h3>
+        <div>
+            <h3>Biometrics Recorder</h3>
             {/*<small>Running on Mobile = {isRunningInWebView().toString()}</small>*/}
             <WordValidate
                 prefix={currentWordIdx + 1 + "."}
                 word={words[currentWordIdx]}
                 onComplete={onWordVerified}/>
-            <br/>
-            <div className="wrapper">
+
+            <Line percent={currentWordIdx / words.length * 100} strokeWidth={4} strokeColor="#37c0a1"
+                  className="progress-bar"/>
+
+            <div className="recorder-wrapper">
                 {words.map((w, i) =>
                     <small key={w} className={`word ${i < currentWordIdx ? "bold" : ""} `}>{i}. {w}</small>)}
             </div>

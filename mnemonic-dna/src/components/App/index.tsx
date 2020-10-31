@@ -13,12 +13,12 @@ const App = () => {
 
     switch (type.toString().toLowerCase()) {
         case "verify" :
-            return <MnemonicVerifier words={words}/>
+            return <div className="App"><MnemonicVerifier words={words}/></div>
             break;
 
         default:
         case "record" :
-            return <MnemonicRecorder words={words}/>
+            return <div className="App"><MnemonicRecorder words={words}/></div>
             break;
 
     }

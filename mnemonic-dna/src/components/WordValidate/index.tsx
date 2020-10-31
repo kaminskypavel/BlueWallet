@@ -44,6 +44,8 @@ const WordPreview = ({word, onComplete, prefix}: Props) => {
                 type="text"
                 onChange={(val => validateTypedText(val))}
                 fields={word.length}
+                fieldWidth={45}
+                fieldHeight={45}
                 // placeholder={word.split("")}
             />
         </div>)
