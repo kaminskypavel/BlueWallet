@@ -14,7 +14,7 @@ const TypingDNASetup = () => {
 
   return (
     <WebView
-      source={{ uri: `http://10.0.0.12:3000/type=record&words=${words}` }}
+      source={{ uri: `http://localhost:3000/?type=record&words=${words}` }}
       originWhitelist={['*']}
       onMessage={event => {
         if (event.nativeEvent.data === 'finish') {
