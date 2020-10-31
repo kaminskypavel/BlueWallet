@@ -14,7 +14,7 @@ router.post('/:id', function (req, res, next) {
     typingDnaClient.save(id, tp, (err, result) => {
         if (err || (result && result.success === 0)) {
             res.status(400).send(err);
-            throw new Error('Error inserting data');
+            throw new Error('Couldnt save user', {err, result});
         }
         res.send(result);
     })
@@ -28,7 +28,7 @@ router.post('/verify/:id', function (req, res, next) {
         console.log("api result", result);
         if (err || (result && result.success === 0)) {
             res.status(400).send(err);
-            throw new Error('Error inserting data');
+            throw new Error('Couldnt verify user', {err, result});
         }
         res.send(result);
     })
