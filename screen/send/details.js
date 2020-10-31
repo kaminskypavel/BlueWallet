@@ -433,7 +433,7 @@ export default class SendDetails extends Component {
           msg = "✅ You're good to go"
         }
         else {
-          msg = "❌ oh-oh... \nverification failed"
+          msg = "❌ oh-oh"
         }
         Alert.alert(`${msg}\n[score = ${score}]`);
 
