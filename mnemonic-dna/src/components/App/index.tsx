@@ -9,7 +9,7 @@ const App = () => {
     const queryStringObj = qs.parse(window.location.search, {arrayFormat: "comma"});
     const type = queryStringObj.type ?? "record";
     const words = queryStringObj?.words?.toString().split(",") ?? ["bird", "is", "the", "word"]
-    console.log(type,words);
+
     switch (type.toString().toLowerCase()) {
         case "verify" :
             return <MnemonicVerifier words={words}/>

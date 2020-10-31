@@ -27,18 +27,18 @@ export const MnemonicVerifier = ({words}: Props) => {
         else {
             const username = crypto.SHA256(words.join(" ")).toString()
             const res = await verifyUser(username, pattern)
-            const {success} = res.data;
+            const {success,data} = res.data;
 
             if (success) {
-                closeWindow()
+                closeAndSendToWallet(data)
             } else {
                 alert("Couldn't create user")
             }
         }
     }
 
-    const closeWindow = () => {
-        isRunningInWebView() ? window.ReactNativeWebView.postMessage("finish") :
+    const closeAndSendToWallet = (data:any) => {
+        isRunningInWebView() ? window.ReactNativeWebView.postMessage(JSON.stringify(data)) :
             alert("windows is closed")
     }
 

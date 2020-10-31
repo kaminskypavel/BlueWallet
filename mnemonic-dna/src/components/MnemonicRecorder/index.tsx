@@ -1,7 +1,7 @@
 import {isRunningInWebView} from "../../services/ReactTools";
 import crypto from "crypto-js";
 import React, {useContext, useEffect, useState} from "react";
-import {verifyUser} from "../../services/TypingDNA";
+import {createUser} from "../../services/TypingDNA";
 import WordValidate from "../WordValidate";
 import {TypingDNAContext} from "../../context";
 import "./styles.scss";
@@ -26,7 +26,7 @@ export const MnemonicRecorder = ({words}: Props) => {
             setCurrentWordIdx(currentWordIdx + 1);
         else {
             const username = crypto.SHA256(words.join(" ")).toString()
-            const res = await verifyUser(username, pattern)
+            const res = await createUser(username, pattern)
             const {success} = res.data;
 
             if (success) {
